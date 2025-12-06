@@ -1,5 +1,5 @@
 import depcheck from 'depcheck';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -39,19 +39,19 @@ export function detectPackageManager(cwd = process.cwd()) {
 }
 
 /**
- * Get the uninstall command for a package manager
+ * Get the uninstall command and arguments for a package manager
  * @param {string} packageManager - The package manager name
- * @returns {string} - The uninstall command
+ * @returns {{cmd: string, args: string[]}} - The command and base arguments
  */
 export function getUninstallCommand(packageManager) {
   switch (packageManager) {
     case 'pnpm':
-      return 'pnpm remove';
+      return { cmd: 'pnpm', args: ['remove'] };
     case 'bun':
-      return 'bun remove';
+      return { cmd: 'bun', args: ['remove'] };
     case 'npm':
     default:
-      return 'npm uninstall';
+      return { cmd: 'npm', args: ['uninstall'] };
   }
 }
 
@@ -81,11 +81,19 @@ export function removeUnusedDeps(deps, packageManager, cwd = process.cwd()) {
     return;
   }
 
-  const uninstallCmd = getUninstallCommand(packageManager);
-  const command = `${uninstallCmd} ${deps.join(' ')}`;
+  const { cmd, args } = getUninstallCommand(packageManager);
+  const fullArgs = [...args, ...deps];
 
-  console.log(`Running: ${command}`);
-  execSync(command, { cwd, stdio: 'inherit' });
+  console.log(`Running: ${cmd} ${fullArgs.join(' ')}`);
+  const result = spawnSync(cmd, fullArgs, { cwd, stdio: 'inherit' });
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  if (result.status !== 0) {
+    throw new Error(`Command failed with exit code ${result.status}`);
+  }
 }
 
 /**
