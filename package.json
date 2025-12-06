@@ -1,0 +1,24 @@
+{
+  "name": "clean-unused-deps",
+  "version": "1.0.0",
+  "description": "Clean unused dependencies npm package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adjscent/clean-unused-deps.git"
+  },
+  "keywords": [
+    "dependencies",
+    "clean",
+    "unused"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adjscent/clean-unused-deps/issues"
+  },
+  "homepage": "https://github.com/adjscent/clean-unused-deps#readme"
+}
