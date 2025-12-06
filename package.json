@@ -1,0 +1,24 @@
+{
+  "name": "clean-unused-deps",
+  "version": "1.0.0",
+  "description": "CLI tool to find and remove unused dependencies",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "clean-unused-deps": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "dependencies",
+    "unused",
+    "clean",
+    "depcheck",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "depcheck": "^1.4.7"
+  }
+}
