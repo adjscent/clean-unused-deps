@@ -1,7 +1,8 @@
 {
   "name": "clean-unused-deps",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "CLI tool to find and remove unused dependencies",
+  "author": "https://github.com/adjscent",
   "type": "module",
   "main": "src/index.js",
   "bin": {
